@@ -13,10 +13,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class AuthorityVO {
-    private int seq;
-    private String username;
-    private String authority;
+public class TodoVO {
+	private int seq;
+	private String username;
+	private String date;
+	private String time;
+	private String todo;
+	private boolean enabled;
 }
-
-
