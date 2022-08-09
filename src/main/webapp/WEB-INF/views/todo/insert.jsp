@@ -22,7 +22,7 @@
 				<legend>TODO INSERT</legend>
 			</c:if>
 
-			<c:if test="${not empty todoVO.seq}">
+			<c:if test="${todoVO.seq != '0'}">
 				<legend>TODO UPDATE</legend>
 			</c:if>
 
