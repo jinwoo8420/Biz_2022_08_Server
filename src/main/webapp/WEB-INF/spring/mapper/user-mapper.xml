@@ -14,11 +14,11 @@
 			order by A.seq
 	</select>
 	
-	<resultMap type="UserVO" id="userAndAuthorities">
+<!-- 	<resultMap type="UserVO" id="userAndAuthorities">
 		<id column="username" property="username"/>
 		<collection property="authorities" column="username" ofType="AuthorityVO" select="roleSelect">
 		</collection>
-	</resultMap>
+	</resultMap> -->
 
 	<select id="findById" resultType="UserVO">
 		select * from tbl_users where username = #{username}

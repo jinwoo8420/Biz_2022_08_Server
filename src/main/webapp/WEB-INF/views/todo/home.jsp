@@ -16,7 +16,7 @@ div.container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 50vh;
+	min-height: 30vh;
 }
 
 table {
@@ -34,12 +34,14 @@ table {
 	<div class="container">
 		<table class="todo">
 			<tr>
+				<th colspan="5" style="border: none;">미완료</th>
+			</tr>
+			<tr>
 				<th>NO</th>
 				<th>작성일자</th>
 				<th>작성시각</th>
 				<th>TODO</th>
 				<th>작성자</th>
-				<th>완료여부</th>
 			</tr>
 
 			<c:forEach items="${TODOS}" var="TODO" varStatus="INDEX">
@@ -49,20 +51,39 @@ table {
 					<td>${TODO.time}</td>
 					<td>${TODO.todo}</td>
 					<td>${TODO.username}</td>
-
-					<c:if test="${empty TODO.enabled}">
-						<td onclick="location.href = '${rootPath}/todo/complete?seq=${TODO.seq}';">완료처리</td>
-					</c:if>
-
-					<c:if test="${TODO.enabled}">
-						<td>완료</td>
-					</c:if>
-
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 
+	<div class="container">
+		<table class="todo">
+			<tr>
+				<th colspan="5" style="border: none;">완료</th>
+			</tr>
+			<tr>
+				<th>NO</th>
+				<th>완료일자</th>
+				<th>완료시각</th>
+				<th>TODO</th>
+				<th>작성자</th>
+			</tr>
+
+
+			<c:forEach items="${COMP}" var="COM" varStatus="INDEX">
+				<tr style="text-align: center">
+					<td>${INDEX.count}</td>
+					<td>${COM.date}</td>
+					<td>${COM.time}</td>
+					<td>${COM.todo}</td>
+					<td>${COM.username}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+
+
+	<a href="${rootPath}/">HOME</a>
 	<a href="${rootPath}/todo/insert">INSERT</a>
 </body>
 

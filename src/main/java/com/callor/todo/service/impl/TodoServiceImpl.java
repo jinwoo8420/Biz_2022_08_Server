@@ -17,13 +17,8 @@ public class TodoServiceImpl implements TodoService {
 	private TodoDao todoDao;
 
 	@Bean
-	public void create_table() {
-		todoDao.create_todo_table();
-	}
-
-	@Override
 	public void create_todo_table() {
-
+		todoDao.create_todo_table();
 	}
 
 	@Override
@@ -38,14 +33,15 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public int insert(TodoVO vo) {
-		todoDao.insert(vo);
-		return 0;
+
+		return todoDao.insert(vo);
 	}
 
 	@Override
 	public int update(TodoVO vo) {
-		todoDao.update(vo);
-		return 0;
+		vo.setEnabled(true);
+
+		return todoDao.update(vo);
 	}
 
 	@Override
@@ -54,9 +50,13 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public int complete(String id) {
-		todoDao.complete(id);
-		return 0;
+	public TodoVO findByUsername(String id) {
+		return todoDao.findByUsername(id);
+	}
+
+	@Override
+	public List<TodoVO> complete() {
+		return todoDao.complete();
 	}
 
 }

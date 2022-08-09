@@ -18,8 +18,15 @@
 <body>
 	<form:form modelAttribute="todoVO" class="insert-form">
 		<fieldset>
-			<legend>TODO 작성</legend>
+			<c:if test="${todoVO.seq eq '0'}">
+				<legend>TODO INSERT</legend>
+			</c:if>
 
+			<c:if test="${not empty todoVO.seq}">
+				<legend>TODO UPDATE</legend>
+			</c:if>
+
+			<input name="seq" type="hidden" value='<c:out value="${todoVO.seq}" default ="0"/>'>
 			<input name="username" readonly="readonly" type="hidden" value="<sec:authentication property="principal.username" />" />
 			<input name="date" readonly="readonly" value="${todoVO.date}" />
 			<input name="time" readonly="readonly" value="${todoVO.time}" />

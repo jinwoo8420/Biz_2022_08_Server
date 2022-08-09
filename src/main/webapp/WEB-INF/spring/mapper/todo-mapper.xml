@@ -5,62 +5,61 @@
 
 <mapper namespace="com.callor.todo.persistance.TodoDao">
 
-	<select id="selectAll" resultType="TodoVO">
-		select * from tbl_todoList order by date and time
-	</select>
+   <select id="selectAll" resultType="TodoVO">
+      select * from tbl_todoList where enabled = false order by date and time desc
+   </select>
 
-	<select id="findById" resultType="TodoVO">
-		select * from tbl_todoList where seq = #{seq}
-	</select>
-	
-	<select id="findByUsername" resultType="TodoVO">
-		select * from tbl_todoList where username = #{username}
-	</select>
+   <select id="findById" resultType="TodoVO">
+      select * from tbl_todoList where seq = #{seq}
+   </select>
+   
+   <select id="findByUsername" resultType="TodoVO">
+      select * from tbl_todoList where username = #{username}
+   </select>
+   
+   <select id="complete" resultType="TodoVO">
+      select * from tbl_todoList where enabled = true order by date and time desc
+   </select>
 
-	<insert id="insert" parameterType="TodoVO">
-		insert into tbl_todoList(
-			seq, 
-			username,
-			date, 
-			time,
-			todo,
-			enabled
-		) values (
-			#{seq},
-			#{username},
-			#{date},
-			#{time},
-			#{todo},
-			#{enabled}
-		)
-	</insert>
+   <insert id="insert" parameterType="TodoVO">
+      insert into tbl_todoList(
+         seq, 
+         username,
+         date, 
+         time,
+         todo,
+         enabled
+      ) values (
+         #{seq},
+         #{username},
+         #{date},
+         #{time},
+         #{todo},
+         #{enabled}
+      )
+   </insert>
 
-	<update id="update" parameterType="TodoVO">
-		update tbl_todoList set
-			username = #{username},
-			date = #{date},
-			time = #{time},
-			todo = #{todo},
-		where seq = #{seq}
-	</update>
+   <update id="update" parameterType="TodoVO">
+      update tbl_todoList set
+         username = #{username},
+         date = #{date},
+         time = #{time},
+         todo = #{todo},
+         enabled = #{enabled}
+      where seq = #{seq}
+   </update>
+   
+   <delete id="delete"></delete>
 
-	<update id="complete" parameterType="TodoVO">
-		update tbl_todoList set 
-        	enabled = true
-        where seq = #{seq};
-	</update>
-	
-	<delete id="delete"></delete>
-
-	<select id="create_todo_table">
-		create table if not exists tbl_todoList (
-			seq BIGINT AUTO_INCREMENT PRIMARY KEY,		
-			username varchar(20) NOT NULL,
-			date VARCHAR(10) NOT NULL,
- 			time VARCHAR(10) NOT NULL,
- 			todo varchar(255) not null,
-			enabled boolean default false
-		)
-	</select>
+   <select id="create_todo_table">
+      create table if not exists tbl_todoList (
+         seq BIGINT AUTO_INCREMENT PRIMARY KEY,      
+         username varchar(20) NOT NULL,
+         date VARCHAR(10) NOT NULL,
+          time VARCHAR(10) NOT NULL,
+          todo varchar(255) not null,
+         enabled boolean default false
+      )
+   </select>
 
 </mapper> 

@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +24,10 @@ public class TodoController {
 	@RequestMapping(value = { "/", "" }, method = RequestMethod.GET)
 	public String home(Model model) {
 		List<TodoVO> vo = todoService.selectAll();
+		List<TodoVO> comp = todoService.complete();
 
 		model.addAttribute("TODOS", vo);
+		model.addAttribute("COMP", comp);
 
 		return "todo/home";
 	}
@@ -53,13 +54,16 @@ public class TodoController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@RequestParam("seq") int seq, Model model) {
-		
-		
+		String st_seq = String.valueOf(seq);
+
+		TodoVO todoVO = todoService.findById(st_seq);
+
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
-		TodoVO todoVO = TodoVO.builder().date(dayFormat.format(date)).time(timeFormat.format(date)).build();
+		todoVO = TodoVO.builder().seq(seq).date(dayFormat.format(date)).time(timeFormat.format(date))
+				.todo(todoVO.getTodo()).build();
 
 		model.addAttribute("todoVO", todoVO);
 
@@ -68,19 +72,9 @@ public class TodoController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(TodoVO todoVO) {
-		int ret = todoService.update(todoVO);
-
-		String str = String.format("redirect:/todo/detail?seq=%s", todoVO.getSeq());
-
-		return str;
-	}
-
-	@RequestMapping(value = "/{seq}/complete", method = RequestMethod.POST)
-	public String complete(@RequestParam("seq") int seq) {
-		String t_seq = String.valueOf(seq);
-
-		todoService.complete(t_seq);
+		todoService.update(todoVO);
 
 		return "redirect:/todo";
 	}
+
 }
