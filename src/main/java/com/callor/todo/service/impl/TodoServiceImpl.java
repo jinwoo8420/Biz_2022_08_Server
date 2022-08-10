@@ -33,7 +33,6 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public int insert(TodoVO vo) {
-
 		return todoDao.insert(vo);
 	}
 
@@ -45,18 +44,13 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public int delete(String id) {
-		return 0;
-	}
-
-	@Override
-	public TodoVO findByUsername(String id) {
-		return todoDao.findByUsername(id);
-	}
-
-	@Override
 	public List<TodoVO> complete() {
 		return todoDao.complete();
+	}
+
+	@Override
+	public int delete(String id) {
+		return 0;
 	}
 
 }

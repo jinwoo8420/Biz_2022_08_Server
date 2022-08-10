@@ -7,7 +7,5 @@ import com.callor.todo.model.TodoVO;
 public interface TodoDao extends GenericDao<TodoVO, String> {
 	public void create_todo_table();
 
-	public TodoVO findByUsername(String id);
-
 	public List<TodoVO> complete();
 }

@@ -69,7 +69,6 @@ table {
 				<th>작성자</th>
 			</tr>
 
-
 			<c:forEach items="${COMP}" var="COM" varStatus="INDEX">
 				<tr style="text-align: center">
 					<td>${INDEX.count}</td>
